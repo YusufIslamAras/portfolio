@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FaGithub, FaLinkedin, FaEnvelope, FaCode, FaLaptopCode, FaRocket } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaEnvelope, FaCode, FaLaptopCode, FaRocket, FaDownload } from "react-icons/fa";
 import ParticlesBackground from "./ParticlesBackground";
 
 export default function Home() {
@@ -55,12 +55,22 @@ export default function Home() {
             Modern web teknolojileri ile <span className="text-cyan-400 font-normal">kullanıcı dostu</span>, <span className="text-cyan-400 font-normal">hızlı</span> ve <span className="text-cyan-400 font-normal">ölçeklenebilir</span> dijital çözümler üretiyorum.
           </p>
           
-          <div className="flex gap-6 justify-center">
+          <div className="flex gap-6 justify-center flex-wrap">
             <a href="#projects" className="px-10 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 rounded-xl font-bold transition shadow-lg shadow-cyan-500/30 transform hover:scale-105">
               Projelerimi Gör
             </a>
+            
             <a href="#contact" className="px-10 py-4 border-2 border-slate-600 hover:border-cyan-500 hover:bg-slate-900/50 rounded-xl font-bold transition transform hover:scale-105 text-slate-300 hover:text-cyan-400">
               İletişime Geç
+            </a>
+
+            {/* YENİ EKLENEN CV BUTONU */}
+            <a 
+              href="/cv.pdf" 
+              download 
+              className="px-10 py-4 bg-slate-800 border-2 border-slate-700 hover:border-cyan-500 hover:text-cyan-400 rounded-xl font-bold transition transform hover:scale-105 flex items-center gap-2 text-slate-300"
+            >
+              <FaDownload /> CV İndir
             </a>
           </div>
         </motion.div>
