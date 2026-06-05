@@ -132,7 +132,7 @@ export default function Home() {
             </a>
             <a 
               href="/cv.pdf" 
-              download 
+              download="yusuf-islam-aras-cv.pdf"
               className="px-8 py-4 bg-slate-900 border-2 border-slate-700 hover:border-cyan-500 hover:text-cyan-400 hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] rounded-xl font-bold transition transform hover:-translate-y-1 flex items-center gap-3 text-slate-300 text-lg"
             >
               <FaDownload /> CV İndir
@@ -319,7 +319,7 @@ export default function Home() {
         <div className="flex justify-center gap-10 text-4xl mb-12">
             <a href="https://github.com/YusufIslamAras" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-cyan-400 hover:scale-125 transition transform"><FaGithub /></a>
             <a href="https://www.linkedin.com/in/yusuf-islam-aras/" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-cyan-400 hover:scale-125 transition transform"><FaLinkedin /></a>
-            <a href="mailto:yusufislamras08@gmail.com" className="text-slate-500 hover:text-cyan-400 hover:scale-125 transition transform"><FaEnvelope /></a>
+            <a href="mailto:yusufislamaras08@gmail.com" className="text-slate-500 hover:text-cyan-400 hover:scale-125 transition transform"><FaEnvelope /></a>
         </div>
         <p className="text-slate-600 font-medium">© 2026 Yusuf İslam Aras. Kodlandı & <span className="text-cyan-500">Next.js</span> ile ayağa kaldırıldı.</p>
       </footer>
