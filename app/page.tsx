@@ -131,7 +131,7 @@ export default function Home() {
               Mimariyi İncele
             </a>
             <a 
-              href="/cv.pdf" 
+              href="/yusuf-islam-aras-cv.pdf" 
               download="yusuf-islam-aras-cv.pdf"
               className="px-8 py-4 bg-slate-900 border-2 border-slate-700 hover:border-cyan-500 hover:text-cyan-400 hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] rounded-xl font-bold transition transform hover:-translate-y-1 flex items-center gap-3 text-slate-300 text-lg"
             >
