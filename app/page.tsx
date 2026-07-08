@@ -107,7 +107,7 @@ export default function Home() {
           transition={{ type: "spring", stiffness: 260, damping: 20 }}
           className="relative w-40 h-40 md:w-56 md:h-56 mx-auto mb-8 rounded-full overflow-hidden border-4 border-cyan-500/50 shadow-[0_0_60px_rgba(6,182,212,0.6)] z-10"
         >
-          <img src="/ben.jpg" alt="Yusuf İslam Aras" className="w-full h-full object-cover" />
+          <img src="/fotografim.jpg" alt="Yusuf İslam Aras" className="w-full h-full object-cover" />
         </motion.div>
 
         <motion.div
