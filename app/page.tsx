@@ -1,36 +1,58 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { 
-  FaGithub, FaLinkedin, FaEnvelope, FaCode, FaLaptopCode, 
-  FaRocket, FaDownload, FaGraduationCap, FaBriefcase, 
-  FaMapMarkerAlt, FaBuilding, FaDatabase, FaShoppingCart, FaServer
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  FaGithub, FaLinkedin, FaEnvelope, FaCode, FaLaptopCode,
+  FaRocket, FaDownload, FaGraduationCap, FaBriefcase,
+  FaMapMarkerAlt, FaBuilding, FaDatabase, FaShoppingCart, FaServer,
+  FaExternalLinkAlt, FaTimes, FaCheckCircle, FaSearch
 } from "react-icons/fa";
 import ParticlesBackground from "./ParticlesBackground";
 
 // --- PROJE VERİLERİ ---
 const projectsData = [
   {
+    id: 7,
+    title: "Nededine (nededine.com)",
+    desc: "Gündem, siyaset, ekonomi, spor, teknoloji, oyun ve magazin kategorilerinde canlı haber akışı sunan haber & eğlence platformu. Günlük öne çıkanlar karuseli, topluluk reaksiyonlarıyla öne çıkan içerikler ve gerçek zamanlı oylama (Tarafını Seç) modülünü baştan sona geliştirdim.",
+    tech: ["Next.js", "React", "Supabase", "Tailwind CSS"],
+    img: "nededine.png",
+    link: "https://nededine.com",
+    features: [
+      "Günlük öne çıkanlar karuseli ve son dakika akışı",
+      "Kategori bazlı içerik filtreleme (Gündem, Teknoloji, Oyun, Magazin...)",
+      "Topluluk reaksiyonlarıyla öne çıkan içerik kartları",
+      "Gerçek zamanlı 'Tarafını Seç' oylama modülü"
+    ],
+    overlayColor: "bg-fuchsia-500/10",
+    hoverBorder: "hover:border-fuchsia-500",
+    shadow: "hover:shadow-[0_0_30px_rgba(217,70,239,0.3)]",
+    titleHover: "group-hover:text-fuchsia-400",
+    accentText: "text-fuchsia-400",
+    accentBg: "bg-fuchsia-500",
+    accentBorder: "border-fuchsia-500/40"
+  },
+  {
     id: 1,
     title: "Söz Gemisi (sozgemisi.com)",
     desc: "Büyük ölçekli edebiyat ve etkileşim platformu. Divan, Kamara ve Dürbün modüllerinden oluşuyor. 'Miço'dan 'Sadrazam'a uzanan gelişmiş puan/rütbe sistemi ve 'Korsan Maskesi' algoritması ile anonimleşme özellikleri uçtan uca kodlandı.",
     tech: ["Next.js", "Tailwind CSS", "Supabase", "Framer Motion"],
-    img: "sozgemisi.png", 
-    overlayColor: "bg-cyan-500/10",
-    hoverBorder: "hover:border-cyan-500",
-    shadow: "hover:shadow-[0_0_30px_rgba(6,182,212,0.3)]",
-    titleHover: "group-hover:text-cyan-400"
-  },
-  {
-    id: 2,
-    title: "Gelişmiş E-Ticaret Altyapıları",
-    desc: "B2B/B2C iş modellerine uygun, yüksek trafik kaldırabilen e-ticaret platformları. Dinamik sepet algoritması, güvenli ödeme (Payment Gateway) entegrasyonu, SEO uyumlu mimari ve detaylı stok/sipariş takibi sunan kapsamlı admin paneli.",
-    tech: ["ASP.NET Core", "React", "SQL Server", "REST API"],
-    img: "eticaret.png",
-    overlayColor: "bg-orange-500/10",
-    hoverBorder: "hover:border-orange-500",
-    shadow: "hover:shadow-[0_0_30px_rgba(249,115,22,0.3)]",
-    titleHover: "group-hover:text-orange-400"
+    img: "sozgemisi.png",
+    link: "https://sozgemisi.com",
+    features: [
+      "Divan, Kamara ve Dürbün modülleriyle çok katmanlı tartışma deneyimi",
+      "'Miço'dan 'Sadrazam'a puan/rütbe tabanlı gamification sistemi",
+      "'Korsan Maskesi' algoritmasıyla anonimleşme",
+      "Supabase tabanlı gerçek zamanlı veri akışı"
+    ],
+    overlayColor: "bg-amber-500/10",
+    hoverBorder: "hover:border-amber-500",
+    shadow: "hover:shadow-[0_0_30px_rgba(245,158,11,0.3)]",
+    titleHover: "group-hover:text-amber-400",
+    accentText: "text-amber-400",
+    accentBg: "bg-amber-500",
+    accentBorder: "border-amber-500/40"
   },
   {
     id: 3,
@@ -38,10 +60,62 @@ const projectsData = [
     desc: "Kullanıcıların gerçek zamanlı online randevu oluşturabildiği, saha yöneticilerinin ise saatleri, ödemeleri ve müşteri kayıtlarını yönetebildiği bulut tabanlı dinamik SaaS çözümü.",
     tech: ["Next.js", "Supabase", "Prisma"],
     img: "halisaha.png",
+    link: "https://halisahaburda.com",
+    features: [
+      "Gerçek zamanlı saha/saat müsaitlik takvimi",
+      "İşletmeci paneli: ödeme ve müşteri kaydı takibi",
+      "Bulut tabanlı, çok şubeli SaaS mimarisi",
+      "Prisma + Supabase ile ölçeklenebilir veri katmanı"
+    ],
     overlayColor: "bg-green-500/10",
     hoverBorder: "hover:border-green-500",
     shadow: "hover:shadow-[0_0_30px_rgba(34,197,94,0.3)]",
-    titleHover: "group-hover:text-green-400"
+    titleHover: "group-hover:text-green-400",
+    accentText: "text-green-400",
+    accentBg: "bg-green-500",
+    accentBorder: "border-green-500/40"
+  },
+  {
+    id: 8,
+    title: "Gelirler ve Giderler",
+    desc: "Kart bazlı bakiye takibi, aylık gelir/gider özeti, borç ve düzenli işlem yönetimi sunan kişisel finans uygulaması. Yapay zekâ destekli 'Akıllı Asistan' harcama analizi ve premium fiş/makbuz OCR okuma özelliğiyle zenginleştirildi.",
+    tech: ["Expo (React Native)", "Next.js", "TypeScript"],
+    img: "gelirlervegiderler.jpeg",
+    link: undefined,
+    features: [
+      "Kart bazlı bakiye ve aylık gelir/gider özeti",
+      "Yapay zekâ destekli 'Akıllı Asistan' harcama analizi",
+      "Premium fiş/makbuz OCR okuma",
+      "Borç ve düzenli işlem (otomatik ödeme) takibi"
+    ],
+    overlayColor: "bg-indigo-500/10",
+    hoverBorder: "hover:border-indigo-500",
+    shadow: "hover:shadow-[0_0_30px_rgba(99,102,241,0.3)]",
+    titleHover: "group-hover:text-indigo-400",
+    accentText: "text-indigo-400",
+    accentBg: "bg-indigo-500",
+    accentBorder: "border-indigo-500/40"
+  },
+  {
+    id: 2,
+    title: "Gelişmiş E-Ticaret Altyapıları",
+    desc: "B2B/B2C iş modellerine uygun, yüksek trafik kaldırabilen e-ticaret platformları. Dinamik sepet algoritması, güvenli ödeme (Payment Gateway) entegrasyonu, SEO uyumlu mimari ve detaylı stok/sipariş takibi sunan kapsamlı admin paneli.",
+    tech: ["ASP.NET Core", "React", "SQL Server", "REST API"],
+    img: "eticaret.png",
+    link: undefined,
+    features: [
+      "Dinamik sepet ve stok/sipariş yönetimi",
+      "Güvenli ödeme (Payment Gateway) entegrasyonu",
+      "SEO uyumlu, yüksek trafik kaldırabilen mimari",
+      "Kapsamlı admin paneli"
+    ],
+    overlayColor: "bg-orange-500/10",
+    hoverBorder: "hover:border-orange-500",
+    shadow: "hover:shadow-[0_0_30px_rgba(249,115,22,0.3)]",
+    titleHover: "group-hover:text-orange-400",
+    accentText: "text-orange-400",
+    accentBg: "bg-orange-500",
+    accentBorder: "border-orange-500/40"
   },
   {
     id: 4,
@@ -49,39 +123,83 @@ const projectsData = [
     desc: "Kurumsal bir lojistik operasyonunun dijital kanadı. Filo yönetimi ve veri akışını optimize eden, modern arayüze sahip, güvenlik odaklı kurumsal web çözümü.",
     tech: ["ASP.NET Web API", "C#", "Bootstrap"],
     img: "sahin-ss.png",
+    link: undefined,
+    features: [
+      "Filo yönetimi ve operasyon veri akışı optimizasyonu",
+      "Güvenlik odaklı kurumsal backend mimarisi",
+      "ASP.NET Web API ile RESTful entegrasyonlar",
+      "Modern, kurumsal arayüz tasarımı"
+    ],
     overlayColor: "bg-blue-500/10",
     hoverBorder: "hover:border-blue-500",
     shadow: "hover:shadow-[0_0_30px_rgba(59,130,246,0.3)]",
-    titleHover: "group-hover:text-blue-400"
+    titleHover: "group-hover:text-blue-400",
+    accentText: "text-blue-400",
+    accentBg: "bg-blue-500",
+    accentBorder: "border-blue-500/40"
   },
   {
     id: 5,
     title: "Yıldız Tekstil Kurumsal Portalı",
     desc: "Geniş çaplı üretim yapan tekstil firması için kurumsal kimlik inşası, web arayüzü geliştirmesi ve UI/UX optimizasyon süreçlerinin yürütülmesi.",
     tech: ["React", "Custom CSS", "SEO"],
-    img: "yildiz.png", 
+    img: "yildiz.png",
+    link: undefined,
+    features: [
+      "Kurumsal kimlik ve marka dili inşası",
+      "UI/UX optimizasyonlu web arayüzü",
+      "SEO odaklı içerik yapısı",
+      "Grafik tasarım + web geliştirme entegrasyonu"
+    ],
     overlayColor: "bg-rose-500/10",
     hoverBorder: "hover:border-rose-500",
     shadow: "hover:shadow-[0_0_30px_rgba(243,63,118,0.3)]",
-    titleHover: "group-hover:text-rose-400"
+    titleHover: "group-hover:text-rose-400",
+    accentText: "text-rose-400",
+    accentBg: "bg-rose-500",
+    accentBorder: "border-rose-500/40"
   },
   {
     id: 6,
     title: "İnteraktif Konsept Tasarımlar",
     desc: "Özel günlere ve kişilere yönelik (örn: elif-dogumgunu-gazete), yüksek animasyonlu, akıcı UI/UX konsept çalışmaları ve niş web deneyimleri.",
     tech: ["React", "Framer Motion", "GitHub Pages"],
-    img: "konsept.png", 
+    img: "konsept.png",
+    link: undefined,
+    features: [
+      "Kişiye özel, yüksek animasyonlu deneyimler",
+      "Framer Motion ile akıcı geçişler",
+      "Niş, tek-sayfa web deneyimleri",
+      "GitHub Pages üzerinde hızlı yayınlama"
+    ],
     overlayColor: "bg-purple-500/10",
     hoverBorder: "hover:border-purple-500",
     shadow: "hover:shadow-[0_0_30px_rgba(168,85,247,0.3)]",
-    titleHover: "group-hover:text-purple-400"
+    titleHover: "group-hover:text-purple-400",
+    accentText: "text-purple-400",
+    accentBg: "bg-purple-500",
+    accentBorder: "border-purple-500/40"
   }
 ];
 
+type Project = (typeof projectsData)[number];
+
 export default function Home() {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  useEffect(() => {
+    document.body.style.overflow = selectedProject ? "hidden" : "";
+    if (!selectedProject) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedProject(null);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [selectedProject]);
+
   return (
     <main className="min-h-screen bg-slate-950 text-white selection:bg-cyan-500 selection:text-white relative z-0">
-      
+
       <ParticlesBackground />
 
       {/* --- NAVBAR --- */}
@@ -283,13 +401,17 @@ export default function Home() {
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
           {projectsData.map((project) => (
-            <motion.div 
+            <motion.div
               key={project.id}
-              whileHover={{ y: -12, scale: 1.02 }} 
-              className={`bg-slate-900/80 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden transition-all duration-300 group ${project.hoverBorder} ${project.shadow} flex flex-col`}
+              onClick={() => setSelectedProject(project)}
+              whileHover={{ y: -12, scale: 1.02 }}
+              className={`bg-slate-900/80 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden transition-all duration-300 group cursor-pointer ${project.hoverBorder} ${project.shadow} flex flex-col`}
             >
               <div className="h-60 w-full overflow-hidden relative">
                  <div className={`absolute inset-0 ${project.overlayColor} group-hover:bg-transparent transition-all duration-500 z-10`}></div>
+                 <div className="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 flex items-center justify-center gap-2 text-white font-bold tracking-wide">
+                    <FaSearch /> Detayları Gör
+                 </div>
                  <img src={project.img} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1" />
               </div>
               <div className="p-8 flex-1 flex flex-col">
@@ -311,6 +433,87 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* --- PROJE DETAY MODAL --- */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedProject(null)}
+            className="fixed inset-0 z-[100] bg-slate-950/85 backdrop-blur-sm flex items-center justify-center p-4 md:p-8"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.92, y: 20 }}
+              transition={{ type: "spring", stiffness: 300, damping: 28 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-slate-900 border border-white/10 rounded-3xl overflow-hidden max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative"
+            >
+              <button
+                onClick={() => setSelectedProject(null)}
+                aria-label="Kapat"
+                className="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-slate-950/70 hover:bg-slate-950 border border-white/10 flex items-center justify-center text-white transition"
+              >
+                <FaTimes />
+              </button>
+
+              <div className="h-64 md:h-80 w-full overflow-hidden relative">
+                <div className={`absolute inset-0 ${selectedProject.overlayColor} z-10`}></div>
+                <img src={selectedProject.img} alt={selectedProject.title} className="w-full h-full object-cover" />
+              </div>
+
+              <div className="p-8 md:p-10">
+                <h3 className={`text-3xl font-extrabold mb-4 ${selectedProject.accentText}`}>
+                  {selectedProject.title}
+                </h3>
+                <p className="text-slate-300 leading-relaxed text-lg mb-8">
+                  {selectedProject.desc}
+                </p>
+
+                <h4 className="text-sm font-bold uppercase tracking-wider text-slate-500 mb-4">Öne Çıkan Özellikler</h4>
+                <ul className="grid sm:grid-cols-2 gap-3 mb-8">
+                  {selectedProject.features.map((feature, index) => (
+                    <li key={index} className="flex items-start gap-3 text-slate-300 text-sm md:text-base">
+                      <FaCheckCircle className={`mt-1 flex-shrink-0 ${selectedProject.accentText}`} />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="flex flex-wrap gap-2 text-xs font-bold mb-8">
+                  {selectedProject.tech.map((techItem, index) => (
+                    <span key={index} className="px-3 py-1.5 bg-slate-950 border border-slate-700/50 rounded-md text-cyan-300 shadow-sm">
+                      {techItem}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex flex-wrap gap-4">
+                  {selectedProject.link && (
+                    <a
+                      href={selectedProject.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`px-6 py-3 rounded-xl font-bold transition flex items-center gap-2 text-white ${selectedProject.accentBg} hover:opacity-90 shadow-lg`}
+                    >
+                      <FaExternalLinkAlt /> Canlı Siteyi Ziyaret Et
+                    </a>
+                  )}
+                  <button
+                    onClick={() => setSelectedProject(null)}
+                    className={`px-6 py-3 rounded-xl font-bold transition text-slate-300 border ${selectedProject.accentBorder} hover:bg-white/5`}
+                  >
+                    Kapat
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* --- FOOTER --- */}
       <footer id="contact" className="py-20 border-t border-cyan-500/20 bg-slate-950 text-center relative z-10">
